@@ -1,6 +1,7 @@
 class Api::V1::PeoplesController < ApplicationController
+
   def index
-    @people = Person.all
+    @people = Person.all.sort_by{|person| person.id}
     render 'index.json.jbuilder'
   end
 
@@ -10,7 +11,10 @@ class Api::V1::PeoplesController < ApplicationController
       bio: params[:bio]
     )
     if person.save
-      render :json => person
+      render :json => {
+        :person => person,
+        :success => "#{person.name} was successfully added to the list!"
+      }
     else
       render :json => { :errors => person.errors.full_messages }, status: 422
     end
@@ -28,7 +32,10 @@ class Api::V1::PeoplesController < ApplicationController
       bio: params[:bio]
     )
     if person.valid?
-      render :json => person
+      render :json => {
+        :person => person,
+        :success => "#{person.name} was successfully updated!"
+      }
     else
       render :json => { :errors => person.errors.full_messages }, status: 422
     end
@@ -36,6 +43,7 @@ class Api::V1::PeoplesController < ApplicationController
 
   def destroy
     person = Person.find_by(id: params[:id])
-    render json: person if person.destroy
+    json_message = "#{person.name} was successfully deleted!"
+    render :json => { :deleteMessage => json_message } if person.destroy
   end
 end

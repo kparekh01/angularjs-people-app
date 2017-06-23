@@ -1,8 +1,30 @@
-<h1>We are here!!!!!</h1>
+<h1>Interesting People!</h1>
 
 <div ng-app="app">
-  {{ 1 + 1 }}
   <div ng-controller="peoplesCtlr">
-    <p>{{ message }}</p>
+    <h2 id='successMessage'>{{ deleteSuccessMessage }}</h2>
+    <div ng-repeat='person in people'>
+      <p>{{person.name}}</p>
+      <p>{{person.bio}}</p>
+      <div ng-repeat='error in updateErrors' id='error'>{{ error }}</div>
+      <div ng-if='person.displayMessage'>
+        <h2 id='successMessage'>{{ updateSuccess }}</h2>
+      </div>
+      <button ng-click='deleteEntry(person)'>Delete This Entry</button>
+      <button ng-click='toggleUpdate(person)'>Update This Entry</button>
+      <div ng-if='person.updateStatus'>
+        <input type='text' placeholder="Name" ng-model="person.name">
+        <input type='text' placeholder="Bio"  ng-model="person.bio">
+        <button ng-click='updateEntry(person)'>Update</button>
+      </div>
+      </div>
+    <input type='text' placeholder="Name" ng-model="name">
+    <input type='text' placeholder="Bio"  ng-model="bio">
+    <button ng-click='addEntry(person)'>Create New Entry</button>
+    <div ng-repeat='postError in postErrorMessages' id='error'>{{ postError }}</div>
+    <h2 id='successMessage'>{{ postSuccessMsg }}</h2>
   </div>
+  <custom-directive-element></custom-directive-element>
+  <div custom-directive-attribute></div>
+  <div class='custom-directive-class'></div>
 </div>
