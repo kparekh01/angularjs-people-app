@@ -1,17 +1,11 @@
 (function () {
   "use strict";
 
-  angular.module("app").controller("peoplesCtlr", function($scope, $http) {
+  angular.module("app").controller("peoplesCtlr", function($scope, $http, peopleFactory) {
     window.$scope = $scope;
-    $scope.people = [];
+    $scope.people = peopleFactory.getPeople();
     $scope.Url = 'http://localhost:3000/api/v1/people/';
-    $http.get($scope.Url).then(function(response){
-      for(var i=0; i < response.data.length; i++){
-        response.data[i].displayMessage = false;
-        response.data[i].updateStatus = false;
-        $scope.people.push(response.data[i]);
-      }
-    });
+
     $scope.addEntry = function(person){
       $scope.updateSuccess = '';
       $scope.updateErrors = [];
@@ -31,6 +25,7 @@
       $scope.name = null;
       $scope.bio = null;
     };
+
     $scope.deleteEntry = function(person){
       $scope.updateSuccess = '';
       $scope.updateErrors = [];
@@ -44,6 +39,7 @@
       $scope.index = $scope.people.indexOf(person);
       $scope.people.splice($scope.index, 1);
     };
+
     $scope.updateEntry = function(person){
       $scope.updateSuccess = '';
       $scope.updateErrors = [];
@@ -62,6 +58,7 @@
       person.updateStatus = false;
       person.displayMessage = true;
     };
+
     $scope.toggleUpdate = function(person){
       person.updateStatus = !person.updateStatus;
       person.displayMessage = false;

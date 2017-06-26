@@ -6,9 +6,9 @@
     <div ng-repeat='person in people'>
       <p>{{person.name}}</p>
       <p>{{person.bio}}</p>
-      <div ng-repeat='error in updateErrors' id='error'>{{ error }}</div>
       <div ng-if='person.displayMessage'>
         <h2 id='successMessage'>{{ updateSuccess }}</h2>
+        <div ng-repeat='error in updateErrors' id='error'>{{ error }}</div>
       </div>
       <button ng-click='deleteEntry(person)'>Delete This Entry</button>
       <button ng-click='toggleUpdate(person)'>Update This Entry</button>
