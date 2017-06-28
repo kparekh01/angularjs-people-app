@@ -3,9 +3,13 @@
 <div ng-app="app">
   <div ng-controller="peoplesCtlr">
     <h1>Number of people remaining in the databse: {{ people.length }}</h1>
-    <button ng-click='toggleOrder("bio")'>Order by bio</button> <button ng-click='toggleOrder("name")'>Order by name</button>
+    <datalist id="names">
+      <option ng-repeat='person in people'>{{ person.name }}</option>
+    </datalist>
+    <input type="text", list='names', placeholder="Search Here", ng-model='searchString'>
+    <button ng-click='toggleOrder("bio")'>Toggle bio</button> <button ng-click='toggleOrder("name")'>Toggle name</button>
     <h2 id='successMessage'>{{ deleteSuccessMessage }}</h2>
-    <div ng-repeat='person in people | filter: {name: filterName} | orderBy:orderAttribute:isReverse'>
+    <div ng-repeat='person in people | filter: {name: filterName} | orderBy:orderAttribute:isReverse | filter:searchString'>
       <p>{{person.name}}</p>
       <p>{{person.bio}}</p>
       <div ng-if='person.displayMessage'>

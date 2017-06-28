@@ -5,6 +5,7 @@
     window.$scope = $scope;
     $scope.people = peopleFactory.getPeople();
     $scope.Url = 'http://localhost:3000/api/v1/people/';
+    $scope.searchString = '';
 
     $scope.addEntry = function(person){
       $scope.updateSuccess = '';
