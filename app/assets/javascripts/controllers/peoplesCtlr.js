@@ -63,5 +63,12 @@
       person.updateStatus = !person.updateStatus;
       person.displayMessage = false;
     };
+
+    $scope.toggleOrder = function(attributeName){
+      if($scope.orderAttribute != attributeName){
+        $scope.orderAttribute = attributeName;
+      }
+      $scope.isReverse = !$scope.isReverse;
+    };
   });
 })();

@@ -2,8 +2,10 @@
 
 <div ng-app="app">
   <div ng-controller="peoplesCtlr">
+    <h1>Number of people remaining in the databse: {{ people.length }}</h1>
+    <button ng-click='toggleOrder("bio")'>Order by bio</button> <button ng-click='toggleOrder("name")'>Order by name</button>
     <h2 id='successMessage'>{{ deleteSuccessMessage }}</h2>
-    <div ng-repeat='person in people'>
+    <div ng-repeat='person in people | filter: {name: filterName} | orderBy:orderAttribute:isReverse'>
       <p>{{person.name}}</p>
       <p>{{person.bio}}</p>
       <div ng-if='person.displayMessage'>
